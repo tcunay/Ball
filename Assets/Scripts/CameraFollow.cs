@@ -1,28 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Player _player;
-
     [SerializeField] private float _displacementCamera;
 
-    private void Start()
-    {
-        transform.position = new Vector3(_player.transform.position.x + _displacementCamera, transform.position.y, transform.position.z);
-    }
+    private Vector3 _newPosition;
+
     private void Update()
     {
-        if (transform.position.x < _player.transform.position.x + _displacementCamera)
-        {
-        transform.position = 
-                new Vector3(_player.transform.position.x + _displacementCamera, transform.position.y, transform.position.z);
-        }
+        transform.position = GetNewPosition();
     }
 
-    public void AddignATarget(Player player)
+    private Vector3 GetNewPosition()
     {
-        _player = player;
+        _newPosition = new Vector3(_player.transform.position.x + _displacementCamera, transform.position.y, transform.position.z);
+
+        return _newPosition;
     }
+
 }

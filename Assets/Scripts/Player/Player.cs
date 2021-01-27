@@ -1,25 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
-    private int _score = 0;
+    private int _score;
 
-    public event UnityAction GameOver;
-    public event UnityAction OnScoreChanged;
+    public event UnityAction Died;
+    public event UnityAction ScoreChanged;
 
     public int Score => _score;
 
-    public void ScoreChanged()
+    public void ChangeScore()
     {
         _score++;
-        OnScoreChanged?.Invoke();
-        Debug.Log(_score);
+        ScoreChanged?.Invoke();
     }
+
     public void Die()
     {
-        GameOver?.Invoke();
+        Died?.Invoke();
+        Destroy(gameObject);
     }
 }

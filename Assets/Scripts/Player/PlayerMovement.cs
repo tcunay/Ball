@@ -22,25 +22,32 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement(SetDirection());
-        SetRotation(SetDirection());
-        Jump();
+        Move(GetDirection());
+        SetRotation(GetDirection());
+        TryJump();
     }
 
-    private int SetDirection()
+    private int GetDirection()
     {
         _direction = 1;
         return _direction;
     }
 
-    private void Movement(int direction)
+    private void Move(int direction)
     {
-        transform.Translate(Vector2.right * _speed);
+        transform.Translate(new Vector2(direction, 0) * _speed);
     }
 
-    private void Jump()
+    private bool GetAJumpOrder()
     {
-        if (_isStanding == true && Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
+            return true;
+        else
+            return false;
+    }
+    private void TryJump()
+    {
+        if (_isStanding == true && GetAJumpOrder())
         {
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }

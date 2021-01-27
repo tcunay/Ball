@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using IJunior.TypedScenes;
 
 public class SceneTransition : MonoBehaviour
 {
     public void OpenMenu()
     {
-        SceneManager.LoadScene("MenuScene", LoadSceneMode.Single);
+        MenuScene.Load();
     }
 }

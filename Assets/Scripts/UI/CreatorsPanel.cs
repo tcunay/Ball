@@ -6,6 +6,8 @@ public class CreatorsPanel : MonoBehaviour
     [SerializeField] private Button _closeButton;
     [SerializeField] private Animator _animator;
 
+    private const string Close = "Close";
+
     private void OnEnable()
     {
         _closeButton.onClick.AddListener(EnableCloseAnimation);
@@ -18,6 +20,6 @@ public class CreatorsPanel : MonoBehaviour
 
     private void EnableCloseAnimation()
     {
-        _animator.SetTrigger("Close");
+        _animator.SetTrigger(Close);
     }
 }

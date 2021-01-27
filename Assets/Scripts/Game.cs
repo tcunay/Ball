@@ -6,22 +6,24 @@ public class Game : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private Button _restartButton;
+    [SerializeField] private GameObject _openMenu;
 
     private void OnEnable()
     {
-        _player.GameOver += OnGameOver;
+        _player.Died += OnGameOver;
         _restartButton.onClick.AddListener(RestartGame);
     }
 
     private void OnDisable()
     {
-        _player.GameOver -= OnGameOver;
+        _player.Died -= OnGameOver;
         _restartButton.onClick.RemoveListener(RestartGame);
     }
 
     public void OnGameOver()
     {
-        Time.timeScale = 0;
+        _openMenu.SetActive(true);
+        //Time.timeScale = 0;
     }
 
     public void RestartGame()

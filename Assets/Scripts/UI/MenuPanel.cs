@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
+using IJunior.TypedScenes;
 
 public class MenuPanel : MonoBehaviour
 {
     public void StartGame()
     {
-        SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
+        GameScene.Load();
     }
 
     public void Exit()

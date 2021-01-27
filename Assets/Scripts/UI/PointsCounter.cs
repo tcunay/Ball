@@ -6,17 +6,18 @@ public class PointsCounter : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private TMP_Text _scoreText;
 
-    private int _score = 0;
-
     private void OnEnable()
     {
-        _player.OnScoreChanged += OnScoreChanged;
+        _player.ScoreChanged += OnScoreChanged;
+    }
+
+    private void OnDisable()
+    {
+        _player.ScoreChanged -= OnScoreChanged;
     }
 
     public void OnScoreChanged()
     {
-        _score++;
-        Debug.Log("ASDASDF" + _player.Score);
-        _scoreText.text = _score.ToString();
+        _scoreText.text = _player.Score.ToString();
     }
 }

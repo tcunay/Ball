@@ -166,9 +166,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe057edd6b246fa48b34710cdc9b546f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _coin: {fileID: 2779108692217932837, guid: 678a512a01bfb4947834f0a0a025ae5d, type: 3}
-  _pointsCounter: {fileID: 5226491251891268781, guid: 85c39de3d1f4ec84385655a9eb128b59,
-    type: 3}
+  _score: 0
 --- !u!114 &8260756791223133395
 MonoBehaviour:
   m_ObjectHideFlags: 0
