@@ -18,5 +18,4 @@ public class CameraFollow : MonoBehaviour
 
         return _newPosition;
     }
-
 }

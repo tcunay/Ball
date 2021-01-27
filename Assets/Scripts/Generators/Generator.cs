@@ -17,7 +17,6 @@ public abstract class Generator : MonoBehaviour
     protected Vector2 InitPosition;
     protected float ElapsedTime;
 
-
     private void Update()
     {
         ElapsedTime +=  Time.deltaTime;
@@ -50,8 +49,6 @@ public abstract class Generator : MonoBehaviour
     {
         while (GetDesiredPlayerState())
         {
-            Debug.Log("Вход в цикл коррутины");
-            //GetInitPosition();
             if (Random.Range(1, 101) <= ChanceSpawn)
             {
                 Initialize();
@@ -59,5 +56,4 @@ public abstract class Generator : MonoBehaviour
             yield return new WaitForSeconds(SecondsBetweenSpawn);
         }
     }
-
 }

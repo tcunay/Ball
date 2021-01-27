@@ -23,7 +23,6 @@ public class Game : MonoBehaviour
     public void OnGameOver()
     {
         _openMenu.SetActive(true);
-        //Time.timeScale = 0;
     }
 
     public void RestartGame()
