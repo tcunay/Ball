@@ -1,59 +1,75 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class Generator : MonoBehaviour
 {
-    [SerializeField] protected GameObject[] Templates;
-    [SerializeField] protected Transform Player;
-    [SerializeField] protected Transform Parent;
+    [SerializeField] private Transform _player;
+    [SerializeField] private Transform _parent;
+    [SerializeField] private GameObject[] _templates;
+    [SerializeField] private float _chanceSpawn;
+    [SerializeField] private float _secondsBetweenSpawn;
+    [SerializeField] private float _maxSpawnPositionY;
+    [SerializeField] private float _minSpawnPositionY;
+    [SerializeField] private float _viewRadius;
 
-    [SerializeField] protected float SecondsBetweenSpawn;
-    [SerializeField] protected float MaxSpawnPositionY;
-    [SerializeField] protected float MinSpawnPositionY;
-    [SerializeField] protected float ViewRadius;
-    [SerializeField] protected float ChanceSpawn;
-
-    protected Vector2 InitPosition;
-    protected float ElapsedTime;
+    private Vector2 _initPosition;
+    private float _currentRadius;
+    private float _elapsedTime;
 
     private void Update()
     {
-        ElapsedTime +=  Time.deltaTime;
-        if(SecondsBetweenSpawn <= ElapsedTime)
+        _elapsedTime +=  Time.deltaTime;
+        if(_secondsBetweenSpawn <= _elapsedTime)
         {
             Initialize();
-            ElapsedTime = 0;
+            _elapsedTime = 0;
         }
     }
-    protected void Initialize()
+
+    private void Initialize()
     {
-        if (Random.Range(1, 101) <= ChanceSpawn && GetDesiredPlayerState())
+        if (GetChance() && GetDesiredPlayerState())
         {
-            Instantiate(SetGameObject(Templates), GetInitPosition(), Quaternion.identity, Parent);
+            Instantiate(GetRandomObject(_templates), GetNextPositionN(), Quaternion.identity, _parent);
         }
     }
 
-    protected abstract Vector2 GetInitPosition();
+    private Vector2 GetNextPositionN()
+    {
+        _initPosition = new Vector2(_currentRadius, Random.Range(_minSpawnPositionY, _maxSpawnPositionY));
+        return _initPosition;
+    }
 
-    protected abstract bool GetDesiredPlayerState();
+    private bool GetChance()
+    {
+        if(Random.Range(1, 101) <= _chanceSpawn)
+        {
+            
+            return true;
+        }
+        else
+        {
+            _currentRadius += _viewRadius;
+            return false;
+        }
+    }
 
-    protected GameObject SetGameObject(GameObject[] templates)
+    private bool GetDesiredPlayerState()
+    {
+        if (_player.transform.position.x + _viewRadius * 2 > _initPosition.x)
+        {
+            _currentRadius += _viewRadius;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    protected GameObject GetRandomObject(GameObject[] templates)
     {
         var template = templates[Random.Range(0, templates.Length)];
 
         return template;
-    }
-
-    private IEnumerator SpawnLoop()
-    {
-        while (GetDesiredPlayerState())
-        {
-            if (Random.Range(1, 101) <= ChanceSpawn)
-            {
-                Initialize();
-            }
-            yield return new WaitForSeconds(SecondsBetweenSpawn);
-        }
     }
 }
