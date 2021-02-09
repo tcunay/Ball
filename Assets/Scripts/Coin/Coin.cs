@@ -9,7 +9,7 @@ public class Coin : MonoBehaviour
             player.ChangeScore();
             Destroy(gameObject);
         }
-        else if (collision.gameObject.TryGetComponent(out Border border))
+        else if(collision.gameObject.TryGetComponent(out Barrier barrier))
         {
             Destroy(gameObject);
         }

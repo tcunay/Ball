@@ -3,19 +3,17 @@
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField] private Player _player;
-    [SerializeField] private float _displacementCamera;
-
-    private Vector3 _newPosition;
+    [SerializeField] private float _offset;
 
     private void Update()
     {
-        transform.position = GetNewPosition();
+        transform.position = GetNextPosition();
     }
 
-    private Vector3 GetNewPosition()
+    private Vector3 GetNextPosition()
     {
-        _newPosition = new Vector3(_player.transform.position.x + _displacementCamera, transform.position.y, transform.position.z);
+        Vector3 nextPosition = new Vector3(_player.transform.position.x + _offset, transform.position.y, transform.position.z);
 
-        return _newPosition;
+        return nextPosition;
     }
 }
