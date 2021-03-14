@@ -4,14 +4,12 @@
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private Transform _transform;
-
     [SerializeField] private float _speed;
     [SerializeField] private float _rotateSpeed;
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speedReductionRatio;
 
     private Rigidbody2D _rigidbody;
-
     private int _direction;
     private bool _isStanding = false;
 
@@ -23,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move(GetDirection());
-        SetRotation(GetDirection());
+        SetRollingRotation(GetDirection());
         TryJump();
     }
 
@@ -38,22 +36,15 @@ public class PlayerMovement : MonoBehaviour
         transform.Translate(new Vector2(direction, 0) * _speed);
     }
 
-    private bool GetAJumpOrder()
-    {
-        if (Input.GetKey(KeyCode.Space))
-            return true;
-        else
-            return false;
-    }
     private void TryJump()
     {
-        if (_isStanding == true && GetAJumpOrder())
+        if (Input.GetKey(KeyCode.Space) && _isStanding == true)
         {
             _rigidbody.AddForce(Vector2.up * _jumpForce, ForceMode2D.Impulse);
         }
     }
 
-    private void SetRotation(int direction)
+    private void SetRollingRotation(int direction)
     {
         _transform.Rotate(new Vector3(0, 0, -direction * _rotateSpeed));
     }

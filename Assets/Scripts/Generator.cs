@@ -26,53 +26,37 @@ public class Generator : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         if (_secondsBetweenSpawn <= _elapsedTime)
         {
-            if (GetChance() && CheckPosition())
+            if (GetChance(_chanceSpawn) && CheckVisibilityPosition())
             {
-                ChangeSpawnPosition();
+                SetNextSpawnRange();
                 Instantiate(GetRandomObject(_templates), GetNextPosition(), Quaternion.identity, _parent);
             }
             _elapsedTime = 0;
         }
     }
 
-    private void ChangeSpawnPosition()
+    private void SetNextSpawnRange()
     {
         _currentSpawnPositionX += Random.Range(_minRangeSpawn, _maxRangeSpawn);
     }
 
     private Vector2 GetNextPosition()
     {
-        Vector2 initPosition = new Vector2(_currentSpawnPositionX, Random.Range(_minSpawnPositionY, _maxSpawnPositionY));
-        return initPosition;
+        return new Vector2(_currentSpawnPositionX, Random.Range(_minSpawnPositionY, _maxSpawnPositionY));
     }
 
-    private bool CheckPosition()
+    private bool CheckVisibilityPosition()
     {
-        if (_player.transform.position.x + _viewRange > GetNextPosition().x)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _player.transform.position.x + _viewRange >= _currentSpawnPositionX;
     }
 
-    private bool GetChance()
+    private bool GetChance(float chance)
     {
-        if (Random.Range(1, 101) <= _chanceSpawn)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Random.Range(1, 101) <= chance;
     }
 
     private GameObject GetRandomObject(GameObject[] templates)
     {
-        var template = templates[Random.Range(0, templates.Length)];
-        return template;
+        return templates[Random.Range(0, templates.Length)];
     }
 }
