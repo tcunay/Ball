@@ -26,16 +26,16 @@ public class Generator : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         if (_secondsBetweenSpawn <= _elapsedTime)
         {
-            if (GetChance(_chanceSpawn) && CheckVisibilityPosition())
+            if (IsCheckChance(_chanceSpawn) && IsPlayerSee(_player.transform.position.x))
             {
-                SetNextSpawnRange();
+                MoveNextSpawnRange();
                 Instantiate(GetRandomObject(_templates), GetNextPosition(), Quaternion.identity, _parent);
             }
             _elapsedTime = 0;
         }
     }
 
-    private void SetNextSpawnRange()
+    private void MoveNextSpawnRange()
     {
         _currentSpawnPositionX += Random.Range(_minRangeSpawn, _maxRangeSpawn);
     }
@@ -45,12 +45,12 @@ public class Generator : MonoBehaviour
         return new Vector2(_currentSpawnPositionX, Random.Range(_minSpawnPositionY, _maxSpawnPositionY));
     }
 
-    private bool CheckVisibilityPosition()
+    private bool IsPlayerSee(float playerPositionX)
     {
-        return _player.transform.position.x + _viewRange >= _currentSpawnPositionX;
+        return playerPositionX + _viewRange >= _currentSpawnPositionX;
     }
 
-    private bool GetChance(float chance)
+    private bool IsCheckChance(float chance)
     {
         return Random.Range(1, 101) <= chance;
     }

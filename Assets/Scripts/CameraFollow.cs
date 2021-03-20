@@ -12,8 +12,6 @@ public class CameraFollow : MonoBehaviour
 
     private Vector3 GetNextPosition()
     {
-        Vector3 nextPosition = new Vector3(_player.transform.position.x + _offset, transform.position.y, transform.position.z);
-
-        return nextPosition;
+        return new Vector3(_player.transform.position.x + _offset, transform.position.y, transform.position.z);
     }
 }

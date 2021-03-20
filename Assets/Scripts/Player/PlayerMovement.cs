@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _speedReductionRatio;
 
     private Rigidbody2D _rigidbody;
-    private int _direction;
+    private int _direction = 1;
     private bool _isStanding = false;
 
     private void Start()
@@ -20,20 +20,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move(GetDirection());
-        SetRollingRotation(GetDirection());
+        Move();
+        SetRollingRotation();
         TryJump();
     }
 
-    private int GetDirection()
+    private void Move()
     {
-        _direction = 1;
-        return _direction;
-    }
-
-    private void Move(int direction)
-    {
-        transform.Translate(new Vector2(direction, 0) * _speed);
+        transform.Translate(new Vector2(_direction, 0) * _speed);
     }
 
     private void TryJump()
@@ -44,9 +38,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SetRollingRotation(int direction)
+    private void SetRollingRotation()
     {
-        _transform.Rotate(new Vector3(0, 0, -direction * _rotateSpeed));
+        _transform.Rotate(new Vector3(0, 0, -_direction * _rotateSpeed));
     }
 
     private void OnCollisionStay2D(Collision2D collision)
