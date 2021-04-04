@@ -1,19 +1,27 @@
 ﻿using UnityEngine;
 
+[System.Serializable]
+public struct BoundarieSpawnPosition
+{
+    public float maxSpawnPositionY;
+    public float minSpawnPositionY;
+    public float minRangeSpawn;
+    public float maxRangeSpawn;
+}
+
 public class Generator : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _parent;
     [SerializeField] private GameObject[] _templates;
+    [SerializeField] private BoundarieSpawnPosition _boundarieSpawnPosition;
     [SerializeField] private float _chanceSpawn;
     [SerializeField] private float _secondsBetweenSpawn;
-    [SerializeField] private float _maxSpawnPositionY;
-    [SerializeField] private float _minSpawnPositionY;
-    [SerializeField] private float _minRangeSpawn;
-    [SerializeField] private float _maxRangeSpawn;
     [SerializeField] private float _viewRange;
 
+    private Vector2 _currentSpawnPosition;
     private float _currentSpawnPositionX;
+    private float _currentSpawnPositionY;
     private float _elapsedTime;
 
     private void Update()
@@ -26,23 +34,21 @@ public class Generator : MonoBehaviour
         _elapsedTime += Time.deltaTime;
         if (_secondsBetweenSpawn <= _elapsedTime)
         {
-            if (IsCheckChance(_chanceSpawn) && IsPlayerSee(_player.transform.position.x))
+            if (IsChance(_chanceSpawn) && IsPlayerSee(_player.transform.position.x))
             {
-                MoveNextSpawnRange();
-                Instantiate(GetRandomObject(_templates), GetNextPosition(), Quaternion.identity, _parent);
+                MoveNext();
+                Instantiate(GetRandomObject(_templates), _currentSpawnPosition, Quaternion.identity, _parent);
             }
             _elapsedTime = 0;
         }
     }
 
-    private void MoveNextSpawnRange()
+    private void MoveNext()
     {
-        _currentSpawnPositionX += Random.Range(_minRangeSpawn, _maxRangeSpawn);
-    }
+        _currentSpawnPositionX += Random.Range(_boundarieSpawnPosition.minRangeSpawn, _boundarieSpawnPosition.maxRangeSpawn);
+        _currentSpawnPositionY = Random.Range(_boundarieSpawnPosition.minSpawnPositionY, _boundarieSpawnPosition.maxSpawnPositionY);
 
-    private Vector2 GetNextPosition()
-    {
-        return new Vector2(_currentSpawnPositionX, Random.Range(_minSpawnPositionY, _maxSpawnPositionY));
+        _currentSpawnPosition = new Vector2(_currentSpawnPositionX, _currentSpawnPositionY);
     }
 
     private bool IsPlayerSee(float playerPositionX)
@@ -50,7 +56,7 @@ public class Generator : MonoBehaviour
         return playerPositionX + _viewRange >= _currentSpawnPositionX;
     }
 
-    private bool IsCheckChance(float chance)
+    private bool IsChance(float chance)
     {
         return Random.Range(1, 101) <= chance;
     }

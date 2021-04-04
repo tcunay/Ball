@@ -441,12 +441,13 @@ MonoBehaviour:
   _templates:
   - {fileID: 8811217852072666801, guid: 09e6ff4bba4fa3a4ba8c546f4677fe62, type: 3}
   - {fileID: 8886972753906556873, guid: 1826b644d41825e4cb38dade0ec4a9ed, type: 3}
+  _boundarieSpawnPosition:
+    maxSpawnPositionY: 3
+    minSpawnPositionY: -0.7
+    minRangeSpawn: 4
+    maxRangeSpawn: 10
   _chanceSpawn: 100
   _secondsBetweenSpawn: 1
-  _maxSpawnPositionY: 3
-  _minSpawnPositionY: -0.7
-  _minRangeSpawn: 4
-  _maxRangeSpawn: 10
   _viewRange: 15
 --- !u!114 &419303565 stripped
 MonoBehaviour:
@@ -1236,12 +1237,13 @@ MonoBehaviour:
   _parent: {fileID: 1653553261}
   _templates:
   - {fileID: 7768981820014250866, guid: 74b03160c43c9294c81cb50a3b8e944f, type: 3}
+  _boundarieSpawnPosition:
+    maxSpawnPositionY: 0
+    minSpawnPositionY: 0
+    minRangeSpawn: 18
+    maxRangeSpawn: 18
   _chanceSpawn: 80
   _secondsBetweenSpawn: 2
-  _maxSpawnPositionY: 5
-  _minSpawnPositionY: -0.43
-  _minRangeSpawn: 10
-  _maxRangeSpawn: 15
   _viewRange: 15
 --- !u!1 &1699557014
 GameObject:
@@ -1323,12 +1325,13 @@ MonoBehaviour:
   _parent: {fileID: 1834505543}
   _templates:
   - {fileID: 8022086979924660164, guid: de3f81b13fdd29c4191b856ecb9ff459, type: 3}
+  _boundarieSpawnPosition:
+    maxSpawnPositionY: 0
+    minSpawnPositionY: 0
+    minRangeSpawn: 18
+    maxRangeSpawn: 18
   _chanceSpawn: 100
   _secondsBetweenSpawn: 0
-  _maxSpawnPositionY: 0
-  _minSpawnPositionY: 0
-  _minRangeSpawn: 18
-  _maxRangeSpawn: 18
   _viewRange: 18
 --- !u!1 &1916229930
 GameObject:
