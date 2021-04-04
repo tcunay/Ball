@@ -10,9 +10,9 @@ public class Player : MonoBehaviour
 
     public int Score => _score;
 
-    public void ChangeScore()
+    public void ChangeScore(int currentReward)
     {
-        _score++;
+        _score += currentReward;
         ScoreChanged?.Invoke();
     }
 
