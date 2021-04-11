@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 
 [System.Serializable]
-public struct BoundarieSpawnPosition
+public struct Range
 {
-    public float maxSpawnPositionY;
-    public float minSpawnPositionY;
-    public float minRangeSpawn;
-    public float maxRangeSpawn;
+    [SerializeField] private float maxSpawnPositionY;
+    [SerializeField] private float minSpawnPositionY;
+    [SerializeField] private float minRangeSpawn;
+    [SerializeField] private float maxRangeSpawn;
+
+    public float RangeY { get => Random.Range(minSpawnPositionY, maxSpawnPositionY); }
+
+    public float RangeDistance { get => Random.Range(minRangeSpawn, maxRangeSpawn); }
 }
 
 public class Generator : MonoBehaviour
@@ -14,7 +18,7 @@ public class Generator : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _parent;
     [SerializeField] private GameObject[] _templates;
-    [SerializeField] private BoundarieSpawnPosition _boundarieSpawnPosition;
+    [SerializeField] private Range _range;
     [SerializeField] private float _chanceSpawn;
     [SerializeField] private float _secondsBetweenSpawn;
     [SerializeField] private float _viewRange;
@@ -45,8 +49,8 @@ public class Generator : MonoBehaviour
 
     private void MoveNext()
     {
-        _currentSpawnPositionX += Random.Range(_boundarieSpawnPosition.minRangeSpawn, _boundarieSpawnPosition.maxRangeSpawn);
-        _currentSpawnPositionY = Random.Range(_boundarieSpawnPosition.minSpawnPositionY, _boundarieSpawnPosition.maxSpawnPositionY);
+        _currentSpawnPositionX += _range.RangeDistance;
+        _currentSpawnPositionY = _range.RangeY;
 
         _currentSpawnPosition = new Vector2(_currentSpawnPositionX, _currentSpawnPositionY);
     }

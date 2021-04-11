@@ -441,7 +441,7 @@ MonoBehaviour:
   _templates:
   - {fileID: 8811217852072666801, guid: 09e6ff4bba4fa3a4ba8c546f4677fe62, type: 3}
   - {fileID: 8886972753906556873, guid: 1826b644d41825e4cb38dade0ec4a9ed, type: 3}
-  _boundarieSpawnPosition:
+  _range:
     maxSpawnPositionY: 3
     minSpawnPositionY: -0.7
     minRangeSpawn: 4
@@ -1237,11 +1237,11 @@ MonoBehaviour:
   _parent: {fileID: 1653553261}
   _templates:
   - {fileID: 7768981820014250866, guid: 74b03160c43c9294c81cb50a3b8e944f, type: 3}
-  _boundarieSpawnPosition:
-    maxSpawnPositionY: 0
-    minSpawnPositionY: 0
-    minRangeSpawn: 18
-    maxRangeSpawn: 18
+  _range:
+    maxSpawnPositionY: 5
+    minSpawnPositionY: -0.43
+    minRangeSpawn: 10
+    maxRangeSpawn: 15
   _chanceSpawn: 80
   _secondsBetweenSpawn: 2
   _viewRange: 15
@@ -1325,7 +1325,7 @@ MonoBehaviour:
   _parent: {fileID: 1834505543}
   _templates:
   - {fileID: 8022086979924660164, guid: de3f81b13fdd29c4191b856ecb9ff459, type: 3}
-  _boundarieSpawnPosition:
+  _range:
     maxSpawnPositionY: 0
     minSpawnPositionY: 0
     minRangeSpawn: 18
