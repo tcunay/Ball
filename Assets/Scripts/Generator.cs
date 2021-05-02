@@ -6,7 +6,7 @@ public struct Range
     [SerializeField] private float _min;
     [SerializeField] private float _max;
 
-    public float RandomPosition { get => Random.Range(_min, _max); }
+    public float RandomPoint { get => Random.Range(_min, _max); }
 }
 
 public class Generator : MonoBehaviour
@@ -46,8 +46,8 @@ public class Generator : MonoBehaviour
 
     private void MoveNext()
     {
-        _currentSpawnPositionX += _rangeHorizontal.RandomPosition;
-        _currentSpawnPositionY = _rangeVertical.RandomPosition;
+        _currentSpawnPositionX += _rangeHorizontal.RandomPoint;
+        _currentSpawnPositionY = _rangeVertical.RandomPoint;
 
         _currentSpawnPosition = new Vector2(_currentSpawnPositionX, _currentSpawnPositionY);
     }
