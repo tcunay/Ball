@@ -3,14 +3,10 @@
 [System.Serializable]
 public struct Range
 {
-    [SerializeField] private float maxSpawnPositionY;
-    [SerializeField] private float minSpawnPositionY;
-    [SerializeField] private float minRangeSpawn;
-    [SerializeField] private float maxRangeSpawn;
+    [SerializeField] private float _min;
+    [SerializeField] private float _max;
 
-    public float RangeY { get => Random.Range(minSpawnPositionY, maxSpawnPositionY); }
-
-    public float RangeDistance { get => Random.Range(minRangeSpawn, maxRangeSpawn); }
+    public float RandomPosition { get => Random.Range(_min, _max); }
 }
 
 public class Generator : MonoBehaviour
@@ -18,7 +14,8 @@ public class Generator : MonoBehaviour
     [SerializeField] private Transform _player;
     [SerializeField] private Transform _parent;
     [SerializeField] private GameObject[] _templates;
-    [SerializeField] private Range _range;
+    [SerializeField] private Range _rangeHorizontal;
+    [SerializeField] private Range _rangeVertical;
     [SerializeField] private float _chanceSpawn;
     [SerializeField] private float _secondsBetweenSpawn;
     [SerializeField] private float _viewRange;
@@ -49,8 +46,8 @@ public class Generator : MonoBehaviour
 
     private void MoveNext()
     {
-        _currentSpawnPositionX += _range.RangeDistance;
-        _currentSpawnPositionY = _range.RangeY;
+        _currentSpawnPositionX += _rangeHorizontal.RandomPosition;
+        _currentSpawnPositionY = _rangeVertical.RandomPosition;
 
         _currentSpawnPosition = new Vector2(_currentSpawnPositionX, _currentSpawnPositionY);
     }
