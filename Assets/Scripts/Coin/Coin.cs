@@ -4,6 +4,18 @@ public class Coin : MonoBehaviour
 {
     private int _reward = 1;
 
+    Collider2D collider;
+
+    private void Awake()
+    {
+        collider = GetComponent<Collider2D>();
+    }
+
+    private void Update()
+    {
+
+    }
+
     private void AddCoin(Player player)
     {
         player.ChangeScore(_reward);
@@ -16,9 +28,6 @@ public class Coin : MonoBehaviour
             AddCoin(player);
             Destroy(gameObject);
         }
-        else if (collision.gameObject.TryGetComponent(out Barrier barrier))
-        {
-            Destroy(gameObject);
-        }
+
     }
 }

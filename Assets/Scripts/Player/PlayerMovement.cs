@@ -21,7 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
-        SetRollingRotation();
+        AnimateWheelSpin();
         TryJump();
     }
 
@@ -38,7 +38,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void SetRollingRotation()
+    private void AnimateWheelSpin()
     {
         _transform.Rotate(new Vector3(0, 0, -_direction * _rotateSpeed));
     }
