@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
 
 [RequireComponent(typeof(Generator))]
 public class ObjectOnlyInFreePlacesLeaver : MonoBehaviour
@@ -13,12 +13,17 @@ public class ObjectOnlyInFreePlacesLeaver : MonoBehaviour
 
     private void OnEnable()
     {
-        _generator.Spawned += (spawnObject) => StartCoroutine(TryDestroyObject(spawnObject));
+        _generator.Spawned += OnSpawnObjectHandler;
     }
 
     private void OnDisable()
     {
-        _generator.Spawned -= (spawnObject) => StartCoroutine(TryDestroyObject(spawnObject));
+        _generator.Spawned -= OnSpawnObjectHandler;
+    }
+
+    private void OnSpawnObjectHandler(GameObject spawnObject)
+    {
+        StartCoroutine(TryDestroyObject(spawnObject));
     }
 
     private IEnumerator TryDestroyObject(GameObject spawnObject)
